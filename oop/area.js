@@ -1,4 +1,7 @@
 class Area {//létrehozunk egy osztályt
+    /**
+     * @param {string} className - amit létre szeretnénk hozni pl 'table'
+     */
     constructor(className) { // konstruktor, kap egy class nevet
         let containsDiv = document.querySelector('.containeroop'); // megnézi van-e már ilyen nevű container
 
@@ -7,7 +10,7 @@ class Area {//létrehozunk egy osztályt
             containsDiv.className = 'containeroop'; // beállítja a class nevét
             document.body.appendChild(containsDiv); // hozzáadja a bodyhoz
         }
-        
+
         const div = document.createElement('div'); // létrehoz egy új divet a kapott class-hoz
         div.className = className; // beállítja a class nevet amit paraméterként kapott
         containsDiv.appendChild(div); // berakja az új divet a containeroop divbe
