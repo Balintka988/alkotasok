@@ -2,4 +2,4 @@ const elvalaszto = document.createElement('hr'); // hogy a html-en egyszeruen me
  document.body.appendChild(elvalaszto); // hozzáadjk a bodyhoz az elválasztó vonalat
  
 const table = new Table('table'); // létrehozunk egy új 'Table' osztálypéldányt 
-const form = new Area('form'); // létrehozunk egy új osztálypéldányt 
+const form = new Form('form'); // létrehozunk egy új Form osztálypéldányt 
