@@ -6,5 +6,6 @@ const mezoLista = [ // egy tömb, benne objektumokkal
     { fieldid: 'mufaj', fieldLabel: 'Műfaj' }, // masodik mezo id, felirat
     { fieldid: 'cim', fieldLabel: 'cím' } // harmadik mezo id, felirat
 ];
-const table = new Table('table'); // létrehozunk egy új 'Table' osztálypéldányt 
-const form = new Form('form', mezoLista); // létrehozunk egy új Form osztálypéldányt 
+const manager = new Manager(); // létrehozzunk egy manager osztálypéldányt
+const table = new Table('table', manager); // létrehozunk egy új 'Table' osztálypéldányt 
+const form = new Form('form', mezoLista, manager); // létrehozunk egy új Form osztálypéldányt 
