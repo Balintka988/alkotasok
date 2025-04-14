@@ -1,3 +1,8 @@
+/**
+ * @callback addSzerzoCallback
+ * @param {HTMLTableSectionElement} tbody megkapja a tbody-t
+ * @returns {void}
+ */
 class Manager { // egy Manager nevű osztály, kezeli az adatokat
     /**
      * @type {Adat[]}
@@ -14,7 +19,7 @@ class Manager { // egy Manager nevű osztály, kezeli az adatokat
     }
 
     /**
-     * @param {Function} callback 
+     * @param {function:void} callback 
      */
     setaddSzerzoCallback(callback) { // beállítjuk a callback függvényt kívülről
         this.#addSzerzoCallback = callback; // eltároljuk a megadott callbacket privát változóban
