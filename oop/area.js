@@ -179,7 +179,6 @@ class Upload extends Area { // létrehozunk egy upload nevű osztályt ami örö
                     this.manager.addSzerzo(adat) // hozzáadjuk a managernél a szerzőt
                 }
             }
-
             beolvaso.readAsText(file) // elindítjuk a fájl olvasását szövegként
         })
     }
