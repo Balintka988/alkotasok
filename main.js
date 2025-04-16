@@ -9,6 +9,23 @@ const makeDiv = (className) => { // csinál egy divet a megadott class névvel a
     return div; // visszaadja a divet
 }
 
+/**
+ * 
+ * @param {array[]} muArray 
+ * @param {Function:boolean} callback 
+ * @returns 
+ */
+const szures = (muArray, callback) => { // létrehozunk egy szures nevű függvényt ami egy tömböt és egy feltételvizsgáló függvényt kap paraméterként
+    const eredmeny = []; // létrehozunk egy üres tömböt amibe az eredményeket fogjuk tárolni
+    for(const element of muArray){ // végigmegyünk a bemeneti tömb minden elemén
+        if(callback(element)){ // ha a callback függvény igazat ad vissza az elemre
+            eredmeny.push(element); // akkor az elemet hozzáadjuk az eredmény tömbhöz
+        }
+    }
+    return eredmeny; // visszaadjuk az eredmény tömböt amely csak a megfelelő elemeket tartalmazza
+}
+
+
 const containerDiv = makeDiv('container'); // container nevű divet csinál
 document.body.appendChild(containerDiv); // hozzáadja a bodyhoz a container divet
 const tableDiv = makeDiv('table'); // csinál egy table nevű divet
@@ -22,7 +39,7 @@ simaTable.appendChild(tableHead); // hozzáadja a táblázathoz a fejlécet
 const tableHeadRow = document.createElement('tr'); // egy sor a thead részbe
 tableHead.appendChild(tableHeadRow); // hozzáadjuk a sort a thead-hez
 
-const fejlecNevek = ['Szerző', 'műfaj', 'cím']; // a fejléc cellák tartalma, tömbbe tároljuk el
+const fejlecNevek = ['Szerző', 'cím', 'műfaj']; // a fejléc cellák tartalma, tömbbe tároljuk el
 for (const fejlec of fejlecNevek) { // végigmegyünk a tömb elemein
     const theadCella = document.createElement('th'); // csinálunk egy új th elemet
     theadCella.innerText = fejlec; // beleírjuk a cellába az aktuális elemet
@@ -40,8 +57,8 @@ formDiv.appendChild(urlapElem); // hozzáadja a formDiv-hez
 // mezők adatai: id és felirat szöveg
 const mezoListA = [ // egy tömb, benne objektumokkal
     { fieldid: 'szerzo', fieldLabel: 'Szerző' }, // elso mezo id, felirat
-    { fieldid: 'mufaj', fieldLabel: 'Műfaj' }, // masodik mezo id, felirat
-    { fieldid: 'cim', fieldLabel: 'cím' } // harmadik mezo id, felirat
+    { fieldid: 'cim', fieldLabel: 'cím' }, // masodik mezo id, felirat
+    { fieldid: 'mufaj', fieldLabel: 'műfaj' } // harmadik mezo id, felirat
 ];
 
 for (const mezoObjektum of mezoListA) { // végigmegyünk minden mezőn
@@ -130,8 +147,8 @@ fileInput.addEventListener('change', (e) => { // esemény amikor fájlt választ
 
             const alkotas = { // létrehozunk egy új objektumot az adatokkal
                 szerzo: mezok[0], // szerzo megadasa
-                mufaj: mezok[1], // mufaj megadasa
-                cim: mezok[2] // cim megadasa
+                cim: mezok[1], // cím megadasa
+                mufaj: mezok[2] // műfaj megadasa
             }
 
             array.push(alkotas) // hozzáadjuk az objektumot a tömbhöz
@@ -143,13 +160,13 @@ fileInput.addEventListener('change', (e) => { // esemény amikor fájlt választ
             szerzoCell.textContent = alkotas.szerzo // beállítjuk a szerző nevét cellába
             tableBodyRow.appendChild(szerzoCell) // hozzáadjuk a sorhoz
 
-            const mufajCell = document.createElement('td') // létrehozunk egy cellát a műfajnak
-            mufajCell.textContent = alkotas.mufaj // beállítjuk a műfajt a cellába
-            tableBodyRow.appendChild(mufajCell) // hozzáadjuk a sorhoz
-
             const cimCell = document.createElement('td') // létrehozunk egy cellát a címnek
             cimCell.textContent = alkotas.cim // beállítjuk a címet a cellába
             tableBodyRow.appendChild(cimCell) // hozzáadjuk a sorhoz
+
+            const mufajCell = document.createElement('td') // létrehozunk egy cellát a műfajnak
+            mufajCell.textContent = alkotas.mufaj // beállítjuk a műfajt a cellába
+            tableBodyRow.appendChild(mufajCell) // hozzáadjuk a sorhoz
         }
     }
     beolvaso.readAsText(file) // elindítjuk a fájl szövegként való beolvasását
@@ -162,7 +179,7 @@ containerDiv.appendChild(letoltesGomb); // hozzáadjuk a containerhez a gombot
 letoltesGomb.addEventListener('click', () => { // ha rákattintanak a gombra ez lefut
     const link = document.createElement('a'); // csinálunk egy <a> elemet ami majd letöltésre lesz
 
-    const tartalomTomb = ['szerző;műfaj;cím'] // létrehozunk egy tömböt fejléc sorral
+    const tartalomTomb = ['szerző;cím;műfaj'] // létrehozunk egy tömböt fejléc sorral
 
     for(const mu of array){ // végigmegyünk az adatokon
         tartalomTomb.push(`${mu.szerzo};${mu.mufaj};${mu.cim}`); // összefűzzük az adatokat és betoljuk a tömbbe
@@ -178,3 +195,78 @@ letoltesGomb.addEventListener('click', () => { // ha rákattintanak a gombra ez 
     URL.revokeObjectURL(link.href); // töröljük az ideiglenes linket hogy ne szemeteljen
 })
 
+const szurtFormDiv = makeDiv('filterForm') // létrehozunk egy divet aminek a class neve filterForm
+containerDiv.appendChild(szurtFormDiv); // hozzáadjuk a filterForm divet a container divhez
+
+const szurtForm = document.createElement('form'); // létrehozunk egy form elemet
+szurtFormDiv.appendChild(szurtForm); // a form elemet hozzáadjuk a filterForm divhez
+
+const select = document.createElement('select'); // létrehozunk egy legördülő menüt
+szurtForm.appendChild(select); // hozzáadjuk a select elemet a formhoz
+
+const options = [{ // létrehozunk egy tömböt amelyben az opciókat tároljuk
+    value: '', // első opció üres értékkel
+    innerText: 'üres' // az első opció megjelenített szövege üres
+},
+{
+    value: 'cim', // második opció értéke cim
+    innerText: 'cím' // megjelenített szövege cím
+},
+{
+    value: 'szerzo', // harmadik opció értéke szerzo
+    innerText: 'szerző' // megjelenített szövege szerző
+}]
+for(const option of options){ // végigmegyünk az opciók tömbjén
+    const optionElement = document.createElement('option'); // létrehozunk egy option elemet
+    optionElement.value = option.value; // beállítjuk az option értékét
+    optionElement.innerText = option.innerText // beállítjuk az option szövegét
+    select.appendChild(optionElement); // hozzáadjuk az option elemet a selecthez
+}
+
+const input =  document.createElement('input'); // létrehozunk egy input mezőt
+input.id='filterInput'; // beállítjuk az input mező azonosítóját filterInput-ra
+szurtForm.appendChild(input); // hozzáadjuk az input mezőt a formhoz
+
+const button = document.createElement('button'); // létrehozunk egy gombot
+button.innerText = 'Szűrés'; // beállítjuk a gomb szövegét hogy Szűrés
+szurtForm.appendChild(button); // hozzáadjuk a gombot a formhoz
+
+szurtForm.addEventListener('submit', (e) => { // amikor elküldik a formot akkor ez lefut
+    e.preventDefault(); // megakadályozzuk hogy az oldal újratöltődjön
+
+    const filterInput = e.target.querySelector('#filterInput'); // lekérjük a beviteli mezőt
+    const select = e.target.querySelector('select'); // lekérjük a kiválasztott értéket a selectből
+
+    const szurtArray = szures(array, (elem) => { // kiszűrjük azokat az elemeket amelyek megfelelnek a feltételnek
+        if(select.value == 'szerzo'){ // ha a kiválasztott érték szerzo
+            if(filterInput.value === elem.szerzo){ // ha az input értéke megegyezik az elem szerzo mezőjével
+                return true; // akkor ez az elem bekerül az eredménybe
+            }
+        }else if(select.value == 'cim'){ // ha a kiválasztott érték cim
+            if(filterInput.value === elem.cim){ // ha az input értéke megegyezik az elem cim mezőjével
+                return true; // akkor ez az elem is bekerül az eredménybe
+            }
+        }else{ // ha semmit nem választottunk akkor minden elem megfelel
+            return true; // tehát bekerül az összes
+        }
+    })
+
+    tbody.innerHTML = ''; // kiürítjük a táblázat törzsét
+
+    for(const szurtElem of szurtArray){ // végigmegyünk a szűrt elemek tömbjén
+        const tableBodyRow = document.createElement('tr'); // létrehozunk egy új sort
+        tbody.appendChild(tableBodyRow); // hozzáadjuk a sort a táblázat törzshöz
+            
+        const szerzoCell = document.createElement('td'); // létrehozunk egy cellát a szerző mezőnek
+        szerzoCell.textContent = szurtElem.szerzo; // beállítjuk a cella tartalmát a szerző értékére
+        tableBodyRow.appendChild(szerzoCell); // hozzáadjuk a cellát a sorhoz
+
+        const cimCell = document.createElement('td'); // létrehozunk egy cellát a cím mezőnek
+        cimCell.textContent = szurtElem.cim; // beállítjuk a cella tartalmát a cím értékére
+        tableBodyRow.appendChild(cimCell); // hozzáadjuk a cellát a sorhoz
+
+        const mufajCell = document.createElement('td'); // létrehozunk egy cellát a műfaj mezőnek
+        mufajCell.textContent = szurtElem.mufaj; // beállítjuk a cella tartalmát a műfaj értékére
+        tableBodyRow.appendChild(mufajCell); // hozzáadjuk a cellát a sorhoz
+    }
+})
