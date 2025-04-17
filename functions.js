@@ -197,7 +197,7 @@ const fajlLetoltes = (container, muArray) => { // fajlLetoltes fuggvény
         const tartalomTomb = ['szerző;cím;műfaj'] // létrehozunk egy tömböt fejléc sorral
     
         for(const mu of muArray){ // végigmegyünk az adatokon
-            tartalomTomb.push(`${mu.szerzo};${mu.mufaj};${mu.cim}`); // összefűzzük az adatokat és betoljuk a tömbbe
+            tartalomTomb.push(`${mu.szerzo};${mu.cim};${mu.mufaj}`); // összefűzzük az adatokat és betoljuk a tömbbe
         }
     
         const tartalom = tartalomTomb.join('\n'); // a tömb elemeit összerakjuk egy hosszú szöveggé sortöréssel

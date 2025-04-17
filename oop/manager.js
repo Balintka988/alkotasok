@@ -64,15 +64,14 @@ class Manager { // egy Manager nevű osztály, kezeli az adatokat
         this.#addSzerzoCallback(szerzo); // meghívjuk a callbacket az új adattal
     }
 
-
     /**
      * @returns {string} letöltési szöveg
      */
     generateOutputString() { // a letöltéshez szükséges szöveget generaljuk itt
-        const tartalomTomb = ['szerző;műfaj;cím'] // létrehozunk egy tömböt fejléc sorral
+        const tartalomTomb = ['szerző;cím;műfaj'] // létrehozunk egy tömböt fejléc sorral
         
         for(const mu of this.#array){ // végigmegyünk az adatokon
-            tartalomTomb.push(`${mu.szerzo};${mu.mufaj};${mu.cim}`); // összefűzzük az adatokat és betoljuk a tömbbe
+            tartalomTomb.push(`${mu.szerzo};${mu.cim};${mu.mufaj}`); // összefűzzük az adatokat és betoljuk a tömbbe
         }
         return tartalomTomb.join('\n'); // a sorokat egy szöveggé fűzzük össze sortöréssel elválasztva
     }

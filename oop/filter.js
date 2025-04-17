@@ -20,8 +20,7 @@ class Filter extends Area {
             select.appendChild(optionElement); // hozzáadja az option elemet a legördülő menühöz
         }
 
-        const button = document.createElement('button'); // létrehoz egy gombot
-        button.innerText = 'Szűrés'; // beállítja a gomb szövegét
+        const button = this.createGomb('Szűrés') // létrehoz egy gombot
         szurtForm.appendChild(button); // hozzáadja a gombot a formhoz
 
         szurtForm.addEventListener('submit', (e) => { // eseményfigyelőt állít be a form elküldésére
