@@ -36,13 +36,13 @@ class Manager { // egy Manager nevű osztály, kezeli az adatokat
     }
 
     /**
-     * @param {function:void} callback 
+     * @param {addSzerzoCallback} callback 
      */
     setaddSzerzoCallback(callback) { // beállítjuk a callback függvényt kívülről
         this.#addSzerzoCallback = callback; // eltároljuk a megadott callbacket privát változóban
     }
     /**
-    * @param {Function} callback 
+    * @param {renderTableCallback} callback 
     */
     setRenderTableCallback(callback){
         this.#renderTableCallback = callback; // privát változóba tároljuk a callbacket
