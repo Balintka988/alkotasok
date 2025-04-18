@@ -74,7 +74,7 @@ class Table extends Area { // létrehozunk egy Table nevű osztályt, ami az Are
 
     /**
      * @param {HTMLElement} tbody megkapja a tbody-t
-     * @returns {RenderTableCallback}
+     * @returns {renderTableCallback}
      */
     #renderTableCallback(tbody){ // táblázat újrarenderelése
         return (array) => { // callback függvény beállítása a táblázat újrarendereléséhez
