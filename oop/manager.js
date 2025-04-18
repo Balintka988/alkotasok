@@ -49,14 +49,6 @@ class Manager { // egy Manager nevű osztály, kezeli az adatokat
     }
 
     /**
-     * Visszaadja az adatok tömbjét.
-     * @returns {Adat[]}
-     */
-    getArray() {
-        return [...this.#array]; // Másolatot ad vissza
-    }
-
-    /**
      * @param {Adat} adat 
      */
     addSzerzo(szerzo) { // új adatot adunk a listához

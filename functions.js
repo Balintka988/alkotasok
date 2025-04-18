@@ -9,21 +9,6 @@ const makeDiv = (className) => { // csinál egy divet a megadott class névvel a
 }
 
 /**
- * 
- * @param {array[]} muArray 
- * @param {Function:boolean} callback 
- */
-const szures = (muArray, callback) => { // létrehozunk egy szures nevű függvényt ami egy tömböt és egy feltételvizsgáló függvényt kap paraméterként
-    const eredmeny = []; // létrehozunk egy üres tömböt amibe az eredményeket fogjuk tárolni
-    for(const element of muArray){ // végigmegyünk a bemeneti tömb minden elemén
-        if(callback(element)){ // ha a callback függvény igazat ad vissza az elemre
-            eredmeny.push(element); // akkor az elemet hozzáadjuk az eredmény tömbhöz
-        }
-    }
-    return eredmeny; // visszaadjuk az eredmény tömböt amely csak a megfelelő elemeket tartalmazza
-}
-
-/**
  * @param {function(HTMLElement):void} callback
  * @param {HTMLDivElement} container - az a div amelybe a táblázatot helyezzük
  */
