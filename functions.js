@@ -43,7 +43,7 @@ const formDiv = makeDiv('form'); // form divet is csinálunk
 /**
  * @param {HTMLElement} tablebody
  * @param {HTMLDivElement} containerDiv 
- * @param {array[]} muArray
+ * @param {Mu[]} muArray
  */
 const createFileUploader =(tablebody, containerDiv, muArray) => { // filefeltöltést itt csináljuk
 const fileInput = document.createElement('input') // létrehozunk egy új input elemet
@@ -80,7 +80,7 @@ fileInput.addEventListener('change', (e) => { // esemény amikor fájlt választ
 /**
 * @param {HTMLElement} tableBody 
 * @param {HTMLElement} containerDiv
-* @param {array[]} array
+* @param {Mu[]} muArray
 */
 const createForm = (tableBody, containerDiv, muArray) => { // létrehozzuk a formot
     const urlapDiv = makeDiv('form'); // letrehoz egy form elemet
@@ -146,7 +146,7 @@ const createForm = (tableBody, containerDiv, muArray) => { // létrehozzuk a for
 }
 
 /**
- * @param {array} alkotas
+ * @param {Mu} alkotas
  * @param {HTMLTableSectionElement} tableBody
  */
 const addRow = (alkotas, tableBody) => { // sorokat hozunk létre
@@ -169,7 +169,7 @@ const addRow = (alkotas, tableBody) => { // sorokat hozunk létre
 
 /**
  * @param {HTMLElement} container
- * @param {array[]} muArray
+ * @param {Mu[]} muArray
  */
 const fajlLetoltes = (container, muArray) => { // fajlLetoltes fuggvény
     const letoltesGomb = document.createElement('button'); // csinálunk egy gombot
@@ -198,7 +198,7 @@ const fajlLetoltes = (container, muArray) => { // fajlLetoltes fuggvény
 /**
  * @param {HTMLDivElement} container
  * @param {HTMLTableSectionElement} tableBody
- * @param {array[]} muArray
+ * @param {Mu[]} muArray
  */
 const szurtFilter = (container, tableBody, muArray) => { // létrehoz egy szűrési űrlapot és hozzáadja a megadott container elemhez
 
